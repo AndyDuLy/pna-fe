@@ -1,0 +1,21 @@
+.input-fields {
+  background-color: transparent;
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: #FFFFFF;
+  margin: 5% 0% 5% 0%;
+}
+
+.new-todo-form-canvas {
+  background-color: #3b3b41;
+  border-radius: 15px;
+  color: #FFFFFF;
+  height: 20vh;
+  place-items: center;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 4%;
+}

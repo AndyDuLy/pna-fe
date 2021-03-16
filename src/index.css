@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+}
+
+input {
+  color: #FFFFFF;
+}
+
+body {
+  background-color: #212127;
+}
+
+.form {
+  max-width: 600px;
+  margin: auto;    
+}
+
+.header {
+  background-color: #2A2B33;
+  color: #FFFFFF;
+  height: 50px;
+  text-align: center;
+}
+
+.todo-content-area {
+  margin-top: 5%;
+}
+
+.create-button-canvas {
+  position: fixed;
+  bottom: 2%;
+  right: 3%;
+}
+
+.create-button {
+  background-color: #DDE0E5;
+  border: 0;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  width: 110%;
+}
+
+.logout-button {
+  border: 1px solid #FFFFFF;
+  border-radius: 15px;
+  background-color: transparent;
+  color: #FFFFFF;
+
+  margin-top: 1%;
+}
+
+.login-canvas {
+  color: #FFFFFF;
+  text-align: center;
+}
