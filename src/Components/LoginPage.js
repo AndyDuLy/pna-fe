@@ -15,13 +15,15 @@ const LoginPage = (props) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  const { REACT_APP_ENDPOINT } = process.env;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setData({ ...data });
       
-      const res = await axios.post( "http://localhost:5000/auth/login",
+      const res = await axios.post(`${REACT_APP_ENDPOINT}/auth/login`,
         {
           email,
           password 
@@ -32,13 +34,13 @@ const LoginPage = (props) => {
             "Content-Type": "application/json",
           },
         }
-      );
+      )
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userID", res.data.user._id);
       props.history.push("/");
     } catch (err) {
-      setData({ ...data, error: err.response.data.error });
+      console.log(err);
     }
   };
 

@@ -22,7 +22,7 @@ const RegisterPage = (props) => {
     try {
       setData({ ...data });
 
-      await axios.post("http://localhost:5000/auth/signup",
+      await axios.post(`${process.env.REACT_APP_ENDPOINT}/auth/signup`,
         {
           name,
           email,
@@ -38,7 +38,7 @@ const RegisterPage = (props) => {
 
       props.history.push("/login");
     } catch (err) {
-      setData({ ...data, error: err.response.data.error });
+      console.log(err);
     }
   };
 

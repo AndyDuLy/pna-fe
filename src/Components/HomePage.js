@@ -11,7 +11,7 @@ const HomePage = (props) => {
   const [showInputForm, setShowInputForm] = useState(false);
 
   const getUser = async () => {
-    const res = await axios.get("http://localhost:5000/auth/user",{
+    const res = await axios.get(`${process.env.REACT_APP_ENDPOINT}/auth/user`,{
       headers: {
         "Authorization": `${localStorage.getItem("token")}`,
       },
@@ -29,7 +29,7 @@ const HomePage = (props) => {
   }, []);
 
   const getTodos = async () => {
-    const res = await axios.get("http://localhost:5000/todos/getTodo", {
+    const res = await axios.get(`${process.env.REACT_APP_ENDPOINT}/todos/getTodo`, {
       headers: {
         "Authorization": `${localStorage.getItem("token")}`,
       },
@@ -42,7 +42,7 @@ const HomePage = (props) => {
   }
 
   const createTodo = async (data) => {
-    await axios.post("http://localhost:5000/todos/newTodo",
+    await axios.post(`${process.env.REACT_APP_ENDPOINT}/todos/newTodo`,
       {
         title: data.title,
         category: data.category,
@@ -60,7 +60,7 @@ const HomePage = (props) => {
   }
 
   const updateTodo = async (data) => {
-    await axios.put("http://localhost:5000/todos/updateTodo",
+    await axios.put(`${process.env.REACT_APP_ENDPOINT}/todos/updateTodo`,
     {
       title: data.title,
       category: data.category,
@@ -78,7 +78,7 @@ const HomePage = (props) => {
   }
 
   const deleteTodo = async (e) => {
-    await axios.delete("http://localhost:5000/todos/deleteTodo", {
+    await axios.delete(`${process.env.REACT_APP_ENDPOINT}/todos/deleteTodo`, {
       headers: {
         "Authorization": `${localStorage.getItem("token")}`,
       },
