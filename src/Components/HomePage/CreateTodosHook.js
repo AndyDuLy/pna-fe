@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const CreateTodosHook = async (title, category, content) => {
-  const res = await axios.post(`${process.env.REACT_APP_ENDPOINT}/todos/newTodo`,
+  const res = await axios.post(`https://rocky-shore-14548.herokuapp.com/todos/newTodo`,
     {
       title: title,
       category: category,

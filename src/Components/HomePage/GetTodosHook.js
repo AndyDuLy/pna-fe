@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const GetTodosHook = async () => {
-  const res = await axios.get(`${process.env.REACT_APP_ENDPOINT}/todos/getTodo`, {
+  const res = await axios.get(`https://rocky-shore-14548.herokuapp.com/todos/getTodo`, {
     headers: {
       "Authorization": `${localStorage.getItem("token")}`,
     },

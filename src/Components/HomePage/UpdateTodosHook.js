@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const UpdateTodosHook = async (title, category, content, todoID) => {
-  const res = await axios.put(`${process.env.REACT_APP_ENDPOINT}/todos/updateTodo`,
+  const res = await axios.put(`https://rocky-shore-14548.herokuapp.com/todos/updateTodo`,
   {
     title: title,
     category: category,
