@@ -21,10 +21,16 @@ const LoginPage = (props) => {
 
     try {
       const res = await LoginHook(email, password);
+      
+      console.log(res);
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userID", res.data.user._id);
-      props.history.push("/");
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userID", res.data.user._id);
+        props.history.push("/");
+      } else {
+        alert("Auth Failed. Check credentials");
+      }
     } catch (err) {
       console.log(err);
     }
