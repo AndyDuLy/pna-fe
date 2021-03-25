@@ -1,6 +1,8 @@
 import React from 'react'
 import './NewTodoForm.css';
 
+import { CreateTodosHook } from "../../HomePage/CreateTodosHook";
+
 
 export const NewTodoForm = (props) => {
   const [data, setData] = React.useState({
@@ -15,9 +17,12 @@ export const NewTodoForm = (props) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const submit = () => {
+  const submit = async () => {
     if (title && category && content) {
-      props.createHook({ title, category, content });
+      const res = await CreateTodosHook(title, category, content);
+
+      if (res.status === 201) props.updateHook();
+      
       props.closeHook(false);
     } else {
       alert("One or more fields is empty");

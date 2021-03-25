@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router";
-import axios from "axios";
+
+import { LoginHook } from "./LoginHook";
 
 
-const RegisterPage = (props) => {
+const LoginPage = (props) => {
   const [data, setData] = useState({
-    name: "",
     email: "",
     password: "",
   });
 
-  const { name, email, password } = data;
+  const { email, password } = data;
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -20,42 +20,21 @@ const RegisterPage = (props) => {
     e.preventDefault();
 
     try {
-      setData({ ...data });
+      const res = await LoginHook(email, password);
 
-      await axios.post(`${process.env.REACT_APP_ENDPOINT}/auth/signup`,
-        {
-          name,
-          email,
-          password
-        },
-
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      props.history.push("/login");
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userID", res.data.user._id);
+      props.history.push("/");
     } catch (err) {
       console.log(err);
     }
   };
 
   if (localStorage.getItem("token")) return <Redirect to="/" />
-  
+
   return (
     <div className="login-canvas">
-      <h3 className=""> Register </h3>
-
-      <input
-        className="input-fields"
-        type="text"
-        name="name"
-        placeholder="Name"
-        value={name}
-        onChange={handleChange}
-      /> <br />
+      <h3 className=""> Log In </h3>
 
       <input
         className="input-fields"
@@ -76,10 +55,14 @@ const RegisterPage = (props) => {
       /> <br />
 
       <button className="logout-button" onClick={handleSubmit}>
-        Register
+        Login
+      </button> <br />
+
+      <button className="auth-redirect-button" onClick={() => props.history.push("/register")}>
+        Need an  <span className="hyperlink-text"> account? </span>
       </button>
     </div>
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

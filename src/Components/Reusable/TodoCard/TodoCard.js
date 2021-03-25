@@ -2,10 +2,17 @@ import React, { useState } from 'react'
 import './TodoCard.css';
 
 import { EditTodoForm } from "../EditTodoForm/EditTodoForm";
+import { DeleteTodosHook } from "../../HomePage/DeleteTodosHook";
 
 
 export const TodoCard = (props) => {
   const [showEditForm, setShowEditForm] = useState(false);
+
+  const DeleteTodo = async (id) => {
+    const res = await DeleteTodosHook(id);
+
+    if (res.status === 201) props.updateFeedHook();
+  }
 
   return (
     <div className="card-canvas">
@@ -18,7 +25,7 @@ export const TodoCard = (props) => {
       </div>
 
       <div>
-        <button className="delete-todo-button" onClick={() => props.deleteHook(props.todo_id)}>
+        <button className="delete-todo-button" onClick={() => DeleteTodo(props.todo_id)}>
           X
         </button>
 
@@ -30,8 +37,8 @@ export const TodoCard = (props) => {
       {showEditForm &&
         <EditTodoForm
           todoID={props.todo_id}
-          updateHook={props.updateHook}
           closeHook={() => setShowEditForm(false)}
+          updateFeedHook={() => props.updateFeedHook()}
         />}
     </div>
   )

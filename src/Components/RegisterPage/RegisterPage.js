@@ -1,54 +1,51 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router";
-import axios from "axios";
+
+import { RegisterHook } from "./RegisterHook";
 
 
-const LoginPage = (props) => {
+const RegisterPage = (props) => {
   const [data, setData] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
-  const { email, password } = data;
+  const { name, email, password } = data;
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const { REACT_APP_ENDPOINT } = process.env;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      setData({ ...data });
-      
-      const res = await axios.post(`${REACT_APP_ENDPOINT}/auth/login`,
-        {
-          email,
-          password 
-        },
+      const res = await RegisterHook(name, email, password);
 
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userID", res.data.user._id);
-      props.history.push("/");
+      if (res.status === 201) {
+        props.history.push("/login");
+        alert("Account created successfully");
+      }
     } catch (err) {
       console.log(err);
     }
   };
 
   if (localStorage.getItem("token")) return <Redirect to="/" />
-
+  
   return (
     <div className="login-canvas">
-      <h3 className=""> Log In </h3>
+      <h3 className=""> Register </h3>
+
+      <input
+        className="input-fields"
+        type="text"
+        name="name"
+        placeholder="Name"
+        value={name}
+        onChange={handleChange}
+      /> <br />
 
       <input
         className="input-fields"
@@ -69,10 +66,14 @@ const LoginPage = (props) => {
       /> <br />
 
       <button className="logout-button" onClick={handleSubmit}>
-        Login
+        Register
+      </button> <br />
+
+      <button className="auth-redirect-button" onClick={() => props.history.push("/login")}>
+        Have an  <span className="hyperlink-text"> account? </span>
       </button>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

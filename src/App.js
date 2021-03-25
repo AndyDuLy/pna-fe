@@ -3,9 +3,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./index.css";
 
 import PrivateRoute from "./PrivateRoute";
-import Register from "./Components/RegisterPage";
-import Login from "./Components/LoginPage";
-import HomePage from "./Components/HomePage";
+import Register from "./Components/RegisterPage/RegisterPage";
+import Login from "./Components/LoginPage/LoginPage";
+import HomePage from "./Components/HomePage/HomePage";
 
 
 const App = () => {

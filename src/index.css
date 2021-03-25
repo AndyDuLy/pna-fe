@@ -47,9 +47,22 @@ body {
   color: #FFFFFF;
 
   margin-top: 1%;
+  margin-bottom: 5%;
 }
 
 .login-canvas {
   color: #FFFFFF;
   text-align: center;
+}
+
+.auth-redirect-button {
+  background-color: transparent;
+  border: 0;
+  color: #FFFFFF;
+  font-style: italic;
+  margin-top: 5%;
+}
+
+.hyperlink-text {
+  color: #0081FF;
 }

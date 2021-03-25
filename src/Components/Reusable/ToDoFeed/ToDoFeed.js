@@ -14,11 +14,10 @@ export const TodoFeed = (props) => {
           <div key={todo.id}>
             <TodoCard
               todo_id={todo.id}
-              updateHook={props.updateHook}
-              deleteHook={props.deleteHook}
               title={todo.title}
               category={todo.category}
               content={todo.content}
+              updateFeedHook={() => props.updateFeedHook()}
             />
           </div>
         )}
