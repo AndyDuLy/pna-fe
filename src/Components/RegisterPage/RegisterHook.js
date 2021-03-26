@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const RegisterHook = async (name, email, password) => {
-  const res = await axios.post(`${process.env.REACT_APP_ENDPOINT}/auth/signup`,
+  const res = await axios.post(`https://rocky-shore-14548.herokuapp.com/auth/signup`,
     {
       name,
       email,
