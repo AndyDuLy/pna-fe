@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './NewTodoForm.css';
 
+import { TodosContext } from "../../Context/TodosContext";
 import { CreateTodosHook } from "../../HomePage/CreateTodosHook";
 
 
 export const NewTodoForm = (props) => {
+  const [state, dispatch] = useContext(TodosContext);
   const [data, setData] = React.useState({
     title: "",
     category: "",
@@ -21,7 +23,19 @@ export const NewTodoForm = (props) => {
     if (title && category && content) {
       const res = await CreateTodosHook(title, category, content);
 
-      if (res.status === 201) props.updateHook();
+      if (res.status === 201) {
+        const todoObject = {
+          id: res.data.objectID,
+          title: title,
+          category: category,
+          content: content,
+        };
+
+        dispatch({
+          type: "CREATE_TODO",
+          payload: todoObject,
+        })
+      }
       
       props.closeHook(false);
     } else {

@@ -4,10 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { TodosContextProvider } from "./Components/Context/TodosContext";
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TodosContextProvider>
+      <App />
+    </TodosContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './ToDoFeed.css';
 
+import { TodosContext } from "../../Context/TodosContext";
 import { TodoCard } from "../TodoCard/TodoCard";
 
 
-export const TodoFeed = (props) => {
-  const todos = props.todos;
+export const TodoFeed = () => {
+  const [state, dispatch] = useContext(TodosContext);
 
   return (
     <div className="">
-      {todos && todos.map((todo) => {
+      {state.todos && state.todos.map((todo) => {
         return (
           <div key={todo.id}>
             <TodoCard
@@ -17,7 +18,6 @@ export const TodoFeed = (props) => {
               title={todo.title}
               category={todo.category}
               content={todo.content}
-              updateFeedHook={() => props.updateFeedHook()}
             />
           </div>
         )}

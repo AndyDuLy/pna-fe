@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
+import { TodosContext } from "../../Context/TodosContext";
 import { UpdateTodosHook } from "../../HomePage/UpdateTodosHook";
 
 
 export const EditTodoForm = (props) => {
+  const [state, dispatch] = useContext(TodosContext);
   const [data, setData] = React.useState({
     title: "",
     category: "",
@@ -21,7 +23,19 @@ export const EditTodoForm = (props) => {
     if (title && category && content) {
       const res = await UpdateTodosHook(title, category, content, todoID);
 
-      if (res.status === 201) props.updateFeedHook();
+      if (res.status === 201) {
+        dispatch({
+          type: "EDIT_TODO",
+          payload: {
+            newTodo: {
+              id: todoID,
+              title: title,
+              category: category,
+              content: content,
+            }
+          },
+        })
+      }
 
       props.closeHook(false);
     } else {

@@ -1,34 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
+import { TodosContext } from "../Context/TodosContext";
 import { TodoFeed } from '../Reusable/ToDoFeed/ToDoFeed';
 import { NewTodoForm } from '../Reusable/NewTodoForm/NewTodoForm';
 
 import { GetUserHook } from "./GetUserHook";
-import { GetTodosHook } from "./GetTodosHook";
-import { UpdateTodosHook } from "./UpdateTodosHook";
-import { DeleteTodosHook } from "./DeleteTodosHook";
 import { LogoutHook } from "../Logout/LogoutHook";
 
 
 const HomePage = (props) => {
   const [user, setUser] = useState(null);
-  const [todos, setTodos] = useState([]);
   const [showInputForm, setShowInputForm] = useState(false);
 
+  const [state, dispatch] = useContext(TodosContext);
+  
   useEffect(() => {
     async function fetchData() {
       const res = await GetUserHook();
       setUser(res.data.name);
-      setTodos(res.data.todos);
+
+      dispatch({
+        type: "POPULATE_TODO",
+        payload: res.data.todos,
+      });
     }
     
     fetchData();
   }, []);
-
-  const updateFeed = async () => {
-    const res = await GetTodosHook();
-    setTodos(res.data);
-  }
 
   if (!localStorage.getItem("token")) {
     props.history.push("/login");
@@ -45,12 +43,7 @@ const HomePage = (props) => {
       </div>
 
       <div className="todo-content-area">
-        <TodoFeed
-          todos={todos}
-          updateHook={() => UpdateTodosHook()}
-          deleteHook={() => DeleteTodosHook()}
-          updateFeedHook={() => updateFeed()}
-        />
+        <TodoFeed todos={state} />
       </div>
 
       <div className="create-button-canvas">
@@ -59,11 +52,7 @@ const HomePage = (props) => {
         </button>
       </div>
 
-      {showInputForm &&
-        <NewTodoForm
-          closeHook={setShowInputForm}
-          updateHook={() => updateFeed()}
-        />}
+      {showInputForm && <NewTodoForm closeHook={setShowInputForm}/>}
     </div>
   );
 };

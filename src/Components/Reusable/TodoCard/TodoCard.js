@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './TodoCard.css';
 
+import { TodosContext } from "../../Context/TodosContext";
 import { EditTodoForm } from "../EditTodoForm/EditTodoForm";
 import { DeleteTodosHook } from "../../HomePage/DeleteTodosHook";
 
 
 export const TodoCard = (props) => {
+  const [state, dispatch] = useContext(TodosContext);
   const [showEditForm, setShowEditForm] = useState(false);
 
   const DeleteTodo = async (id) => {
     const res = await DeleteTodosHook(id);
 
-    if (res.status === 201) props.updateFeedHook();
+    if (res.status === 201) {
+      dispatch({
+        type: "DELETE_TODO",
+        payload: id,
+      });
+    }
   }
 
   return (
@@ -38,7 +45,6 @@ export const TodoCard = (props) => {
         <EditTodoForm
           todoID={props.todo_id}
           closeHook={() => setShowEditForm(false)}
-          updateFeedHook={() => props.updateFeedHook()}
         />}
     </div>
   )
