@@ -35,6 +35,8 @@ export const EditTodoForm = (props) => {
             }
           },
         })
+      } else {
+        console.log('State remains unchanged: ', state);
       }
 
       props.closeHook(false);

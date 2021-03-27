@@ -35,6 +35,8 @@ export const NewTodoForm = (props) => {
           type: "CREATE_TODO",
           payload: todoObject,
         })
+      } else {
+        console.log('State remains unchanged: ', state);
       }
       
       props.closeHook(false);

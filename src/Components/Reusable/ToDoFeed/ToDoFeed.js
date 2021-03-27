@@ -8,6 +8,8 @@ import { TodoCard } from "../TodoCard/TodoCard";
 export const TodoFeed = () => {
   const [state, dispatch] = useContext(TodosContext);
 
+  if (!state) console.log('State empty; modify through reducer: ', dispatch)
+
   return (
     <div className="">
       {state.todos && state.todos.map((todo) => {

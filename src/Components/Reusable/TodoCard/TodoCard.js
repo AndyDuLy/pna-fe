@@ -18,6 +18,8 @@ export const TodoCard = (props) => {
         type: "DELETE_TODO",
         payload: id,
       });
+    } else {
+      console.log('State remains unchanged: ', state);
     }
   }
 

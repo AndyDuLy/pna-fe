@@ -26,7 +26,7 @@ const HomePage = (props) => {
     }
     
     fetchData();
-  }, []);
+  });
 
   if (!localStorage.getItem("token")) {
     props.history.push("/login");
