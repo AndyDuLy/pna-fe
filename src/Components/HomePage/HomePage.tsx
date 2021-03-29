@@ -6,7 +6,7 @@ import { TodosContext } from "../Context/TodosContext";
 import { TodoFeed } from '../Reusable/ToDoFeed/ToDoFeed';
 import { NewTodoForm } from '../Reusable/NewTodoForm/NewTodoForm';
 
-import { GetUserHook } from "./GetUserHook";
+import { GetUserHook } from "../../Hooks/GetUserHook";
 import { LogoutHook } from "../Logout/LogoutHook";
 
 

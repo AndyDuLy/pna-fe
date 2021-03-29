@@ -16,10 +16,6 @@ export const TodoFeed = () => {
         return (
           <div key={todo.id}>
             <TodoCard
-              /* todo_id={todo.id}
-              title={todo.title}
-              category={todo.category}
-              content={todo.content} */
               Todo={todo}
             />
           </div>

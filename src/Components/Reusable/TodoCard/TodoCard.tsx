@@ -5,7 +5,7 @@ import Todo from "../../Interfaces/Todo";
 
 import { TodosContext } from "../../Context/TodosContext";
 import { EditTodoForm } from "../EditTodoForm/EditTodoForm";
-import { DeleteTodosHook } from "../../HomePage/DeleteTodosHook";
+import { DeleteTodosHook } from "../../../Hooks/DeleteTodosHook";
 
 
 interface Props {
@@ -27,12 +27,24 @@ export const TodoCard: React.FC<Props> = (props) => {
     }
   }
 
+  const style = {
+    cardCategory: {
+      color: `${props.Todo.colorCode}`,
+      fontSize: "0.9rem",
+    },
+
+    colorCode: {
+      backgroundColor: `${props.Todo.colorCode}`,
+      borderRadius: "15px 0px 0px 15px",
+    },
+  }
+
   return (
     <div className="card-canvas">
-      <div className="card-color-code"> </div>
+      <div style={style.colorCode}> </div>
 
       <div className="card-content">
-        <span className="card-category"> {props.Todo.category} </span> <br />
+        <span style={style.cardCategory}> {props.Todo.category} </span> <br />
         <span className="card-title"> {props.Todo.title} </span> <br />
         <span className="card-todo-content"> {props.Todo.content} </span>
       </div>
@@ -49,7 +61,7 @@ export const TodoCard: React.FC<Props> = (props) => {
 
       {showEditForm &&
         <EditTodoForm
-          todoID={props.Todo.id}
+          todo={props.Todo}
           closeHook={() => setShowEditForm(false)}
         />}
     </div>
