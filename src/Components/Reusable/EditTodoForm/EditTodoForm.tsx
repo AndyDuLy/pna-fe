@@ -1,32 +1,37 @@
 import React, { useContext } from 'react'
+import { HexColorPicker } from "react-colorful";
+
+import Todo from "../../Interfaces/Todo";
 
 import { TodosContext } from "../../Context/TodosContext";
-import { UpdateTodosHook } from "../../HomePage/UpdateTodosHook";
+import { UpdateTodosHook } from "../../../Hooks/UpdateTodosHook";
 
 
 interface Props {
-  todoID: string,
+  todo: Todo
   closeHook: (newState: boolean) => void,
 }
 
 export const EditTodoForm: React.FC<Props> = (props) => {
   const todosContext = useContext(TodosContext);
+
+  const [color, setColor] = React.useState(`${props.todo.colorCode}`);
   const [data, setData] = React.useState({
-    title: "",
-    category: "",
-    content: "",
+    title: `${props.todo.title}`,
+    category: `${props.todo.category}`,
+    content: `${props.todo.content}`,
   });
 
   const { title, category, content } = data;
-  const todoID = props.todoID;
+  const todoID = props.todo.id;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const submit = async () => {
-    if (title && category && content) {
-      const res = await UpdateTodosHook(title, category, content, todoID);
+    if (title && category && content && color) {
+      const res = await UpdateTodosHook(title, category, content, color, todoID);
 
       if (res.status === 201) {
         todosContext.dispatch({
@@ -36,6 +41,7 @@ export const EditTodoForm: React.FC<Props> = (props) => {
             title: title,
             category: category,
             content: content,
+            colorCode: color,
           },
         })
       }
@@ -66,6 +72,11 @@ export const EditTodoForm: React.FC<Props> = (props) => {
         placeholder="Insert New Category Here"
         value={category}
         onChange={handleChange}
+      />
+
+      <HexColorPicker
+        color={color}
+        onChange={setColor}
       />
 
       <input                 

@@ -1,7 +1,9 @@
 import axios from "axios";
+import { endpoints } from "../../Hooks/endpoints";
+
 
 export const LoginHook = async (email: string, password: string) => {
-  const res = await axios.post(`https://rocky-shore-14548.herokuapp.com/auth/login`,
+  const res = await axios.post(`${endpoints.login}`,
     {
       email,
       password

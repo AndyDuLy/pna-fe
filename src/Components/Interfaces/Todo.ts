@@ -3,4 +3,5 @@ export default interface Todo {
   title: string,
   category: string,
   content: string,
+  colorCode: string,
 }

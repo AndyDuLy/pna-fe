@@ -11,18 +11,8 @@
   max-height: 100%;
 }
 
-.card-color-code {
-  background-color: #F26849;
-  border-radius: 15px 0px 0px 15px;
-}
-
 .card-content {
   margin: 3% 3% 5% 3%;
-}
-
-.card-category {
-  color: #F26849;
-  font-size: 0.9rem;
 }
 
 .card-title {

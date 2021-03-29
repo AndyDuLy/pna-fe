@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
+import { HexColorPicker } from "react-colorful";
 import './NewTodoForm.css';
 
 import { TodosContext } from "../../Context/TodosContext";
-import { CreateTodosHook } from "../../HomePage/CreateTodosHook";
+import { CreateTodosHook } from "../../../Hooks/CreateTodosHook";
 
 
 interface Props {
@@ -11,6 +12,8 @@ interface Props {
 
 export const NewTodoForm: React.FC<Props> = (props) => {
   const todosContext = useContext(TodosContext);
+
+  const [color, setColor] = React.useState("#aabbcc");
   const [data, setData] = React.useState({
     title: "",
     category: "",
@@ -25,7 +28,7 @@ export const NewTodoForm: React.FC<Props> = (props) => {
 
   const submit = async () => {
     if (title && category && content) {
-      const res = await CreateTodosHook(title, category, content);
+      const res = await CreateTodosHook(title, category, content, color);
 
       if (res.status === 201) {
         const todoObject = {
@@ -33,6 +36,7 @@ export const NewTodoForm: React.FC<Props> = (props) => {
           title: title,
           category: category,
           content: content,
+          colorCode: color,
         };
 
         todosContext.dispatch({
@@ -67,6 +71,11 @@ export const NewTodoForm: React.FC<Props> = (props) => {
         placeholder="Insert Category Here"
         value={category}
         onChange={handleChange}
+      />
+
+      <HexColorPicker
+        color={color}
+        onChange={setColor}
       />
 
       <input                 
