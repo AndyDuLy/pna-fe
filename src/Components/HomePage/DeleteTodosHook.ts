@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const DeleteTodosHook = async (todoID) => {
-  const res = await axios.delete(`${process.env.REACT_APP_ENDPOINT}/todos/deleteTodo`, {
+export const DeleteTodosHook = async (todoID: string) => {
+  const res = await axios.delete(`https://rocky-shore-14548.herokuapp.com/todos/deleteTodo`, {
     headers: {
       "Authorization": `${localStorage.getItem("token")}`,
     },

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 
+import { RouteComponentProps } from "react-router-dom";
+
 import { TodosContext } from "../Context/TodosContext";
 import { TodoFeed } from '../Reusable/ToDoFeed/ToDoFeed';
 import { NewTodoForm } from '../Reusable/NewTodoForm/NewTodoForm';
@@ -8,25 +10,29 @@ import { GetUserHook } from "./GetUserHook";
 import { LogoutHook } from "../Logout/LogoutHook";
 
 
-const HomePage = (props) => {
+interface Props {
+  history: RouteComponentProps['history'],
+}
+
+const HomePage: React.FC<Props> = (props) => {
   const [user, setUser] = useState(null);
   const [showInputForm, setShowInputForm] = useState(false);
 
-  const [state, dispatch] = useContext(TodosContext);
+  const todoContext = useContext(TodosContext);
   
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       const res = await GetUserHook();
       setUser(res.data.name);
 
-      dispatch({
+      todoContext.dispatch({
         type: "POPULATE_TODO",
         payload: res.data.todos,
       });
     }
     
-    fetchData();
-  });
+    fetchData(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!localStorage.getItem("token")) {
     props.history.push("/login");
@@ -43,7 +49,7 @@ const HomePage = (props) => {
       </div>
 
       <div className="todo-content-area">
-        <TodoFeed todos={state} />
+        <TodoFeed />
       </div>
 
       <div className="create-button-canvas">

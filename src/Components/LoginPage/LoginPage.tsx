@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router";
 
+import { RouteComponentProps } from "react-router-dom";
+
 import { LoginHook } from "./LoginHook";
 
 
-const LoginPage = (props) => {
+interface Props {
+  history: RouteComponentProps['history'],
+}
+
+const LoginPage: React.FC<Props> = (props) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -12,11 +18,11 @@ const LoginPage = (props) => {
 
   const { email, password } = data;
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     try {

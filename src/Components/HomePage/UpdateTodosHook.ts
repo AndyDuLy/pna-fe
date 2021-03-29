@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const UpdateTodosHook = async (title, category, content, todoID) => {
+export const UpdateTodosHook = async (title: string, category: string, content: string, todoID: string) => {
   const res = await axios.put(`https://rocky-shore-14548.herokuapp.com/todos/updateTodo`,
   {
     title: title,

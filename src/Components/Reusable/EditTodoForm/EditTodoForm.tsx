@@ -1,12 +1,16 @@
 import React, { useContext } from 'react'
-import './NewTodoForm.css';
 
 import { TodosContext } from "../../Context/TodosContext";
-import { CreateTodosHook } from "../../HomePage/CreateTodosHook";
+import { UpdateTodosHook } from "../../HomePage/UpdateTodosHook";
 
 
-export const NewTodoForm = (props) => {
-  const [state, dispatch] = useContext(TodosContext);
+interface Props {
+  todoID: string,
+  closeHook: (newState: boolean) => void,
+}
+
+export const EditTodoForm: React.FC<Props> = (props) => {
+  const todosContext = useContext(TodosContext);
   const [data, setData] = React.useState({
     title: "",
     category: "",
@@ -14,31 +18,28 @@ export const NewTodoForm = (props) => {
   });
 
   const { title, category, content } = data;
+  const todoID = props.todoID;
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const submit = async () => {
     if (title && category && content) {
-      const res = await CreateTodosHook(title, category, content);
+      const res = await UpdateTodosHook(title, category, content, todoID);
 
       if (res.status === 201) {
-        const todoObject = {
-          id: res.data.objectID,
-          title: title,
-          category: category,
-          content: content,
-        };
-
-        dispatch({
-          type: "CREATE_TODO",
-          payload: todoObject,
+        todosContext.dispatch({
+          type: "EDIT_TODO",
+          payload: {
+            id: todoID,
+            title: title,
+            category: category,
+            content: content,
+          },
         })
-      } else {
-        console.log('State remains unchanged: ', state);
       }
-      
+
       props.closeHook(false);
     } else {
       alert("One or more fields is empty");
@@ -47,13 +48,13 @@ export const NewTodoForm = (props) => {
 
   return (
     <div className="new-todo-form-canvas">
-      New To Do:
+      Update To Do:
 
       <input                 
         className="input-fields"
         type="text"
         name="title"
-        placeholder="Insert Title Here"
+        placeholder="Insert New Title Here"
         value={title}
         onChange={handleChange}
       />
@@ -62,7 +63,7 @@ export const NewTodoForm = (props) => {
         className="input-fields"
         type="text"
         name="category"
-        placeholder="Insert Category Here"
+        placeholder="Insert New Category Here"
         value={category}
         onChange={handleChange}
       />
@@ -71,13 +72,13 @@ export const NewTodoForm = (props) => {
         className="input-fields"
         type="text"
         name="content"
-        placeholder="Insert Content Here"
+        placeholder="Insert New Content Here"
         value={content}
         onChange={handleChange}
       />
 
       <button className="logout-button" onClick={submit}>
-        Create
+        Edit
       </button>
     </div>
   )

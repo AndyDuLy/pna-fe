@@ -2,7 +2,12 @@ import React from 'react';
 import { Route, Redirect } from "react-router-dom";
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+interface Props {
+  Component: React.ComponentType<any>,
+  path: string,
+}
+
+const PrivateRoute: React.FC<Props> = ({ Component, ...rest }) => {
   var token = localStorage.getItem("token");
 
   return (

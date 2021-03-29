@@ -1,25 +1,26 @@
 import React, { useContext } from 'react'
 import './ToDoFeed.css';
 
+import Todo from "../../Interfaces/Todo";
+
 import { TodosContext } from "../../Context/TodosContext";
 import { TodoCard } from "../TodoCard/TodoCard";
 
 
 export const TodoFeed = () => {
-  const [state, dispatch] = useContext(TodosContext);
-
-  if (!state) console.log('State empty; modify through reducer: ', dispatch)
+  const todosContextConsumer = useContext(TodosContext);
 
   return (
     <div className="">
-      {state.todos && state.todos.map((todo) => {
+      {todosContextConsumer.state.todos && todosContextConsumer.state.todos.map((todo: Todo) => {
         return (
           <div key={todo.id}>
             <TodoCard
-              todo_id={todo.id}
+              /* todo_id={todo.id}
               title={todo.title}
               category={todo.category}
-              content={todo.content}
+              content={todo.content} */
+              Todo={todo}
             />
           </div>
         )}

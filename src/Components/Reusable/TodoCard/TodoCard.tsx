@@ -1,25 +1,29 @@
 import React, { useState, useContext } from 'react'
 import './TodoCard.css';
 
+import Todo from "../../Interfaces/Todo";
+
 import { TodosContext } from "../../Context/TodosContext";
 import { EditTodoForm } from "../EditTodoForm/EditTodoForm";
 import { DeleteTodosHook } from "../../HomePage/DeleteTodosHook";
 
 
-export const TodoCard = (props) => {
-  const [state, dispatch] = useContext(TodosContext);
+interface Props {
+  Todo: Todo,
+}
+
+export const TodoCard: React.FC<Props> = (props) => {
+  const todosContext = useContext(TodosContext);
   const [showEditForm, setShowEditForm] = useState(false);
 
-  const DeleteTodo = async (id) => {
+  const DeleteTodo = async (id: string) => {
     const res = await DeleteTodosHook(id);
 
     if (res.status === 201) {
-      dispatch({
+      todosContext.dispatch({
         type: "DELETE_TODO",
         payload: id,
       });
-    } else {
-      console.log('State remains unchanged: ', state);
     }
   }
 
@@ -28,13 +32,13 @@ export const TodoCard = (props) => {
       <div className="card-color-code"> </div>
 
       <div className="card-content">
-        <span className="card-category"> {props.category} </span> <br />
-        <span className="card-title"> {props.title} </span> <br />
-        <span className="card-todo-content"> {props.content} </span>
+        <span className="card-category"> {props.Todo.category} </span> <br />
+        <span className="card-title"> {props.Todo.title} </span> <br />
+        <span className="card-todo-content"> {props.Todo.content} </span>
       </div>
 
       <div>
-        <button className="delete-todo-button" onClick={() => DeleteTodo(props.todo_id)}>
+        <button className="delete-todo-button" onClick={() => DeleteTodo(props.Todo.id)}>
           X
         </button>
 
@@ -45,7 +49,7 @@ export const TodoCard = (props) => {
 
       {showEditForm &&
         <EditTodoForm
-          todoID={props.todo_id}
+          todoID={props.Todo.id}
           closeHook={() => setShowEditForm(false)}
         />}
     </div>

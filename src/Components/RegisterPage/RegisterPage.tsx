@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router";
 
+import { RouteComponentProps } from "react-router-dom";
+
 import { RegisterHook } from "./RegisterHook";
 
 
-const RegisterPage = (props) => {
+interface Props {
+  history: RouteComponentProps['history'],
+}
+
+const RegisterPage: React.FC<Props> = (props) => {
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -13,11 +19,11 @@ const RegisterPage = (props) => {
 
   const { name, email, password } = data;
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     try {
