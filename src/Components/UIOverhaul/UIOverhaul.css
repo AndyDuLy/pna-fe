@@ -1,0 +1,62 @@
+.container {
+  margin: 30px;
+}
+
+.greeting {
+  font-size: 2.3rem;
+}
+
+.current-date {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.top-bar {
+  display: grid;
+  grid-template-columns: 40% 30% 30%;
+}
+
+.theme-button-container {
+  text-align: right;
+}
+
+.light-primary-color {
+  transition: all 1s ease-in;
+  color: #7433FF;
+}
+
+.dark-primary-color {
+  transition: all 1s ease-in;
+  color: #33FFF3;
+}
+
+
+.light-container {
+  transition: all 1s ease-in;
+  background-color: #FFFFFF;
+}
+
+.dark-container {
+  transition: all 1s ease-in;
+  background-color: #3E3E3E;
+}
+
+.light-text {
+  transition: color 1s ease-in;
+  color: #000000;
+}
+
+.dark-text {
+  transition: color 1s ease-in;
+  color: #FFFFFF;
+}
+
+.light-date-text {
+  transition: color 1s ease-in;
+  color: #8D8D8D;
+}
+
+.dark-date-text {
+  transition: color 1s ease-in;
+  color: #FFFFFF;
+}
