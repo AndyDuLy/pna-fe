@@ -1,0 +1,88 @@
+.card-canvas {
+  border-radius: 15px;
+  margin: 20px 15px 30px 15px;
+  padding: 15px;
+}
+
+.light-card {
+  transition: all 0.5s ease-in;
+  background-color: #F5F6FA;
+  color: #000000;
+}
+
+.dark-card {
+  transition: all 0.5s ease-in;
+  background-color: #525252;
+  color: #FFFFFF;
+}
+
+.light-card:hover {
+  filter: drop-shadow(0px 5px 40px rgba(87, 8, 255, 0.5));
+}
+
+.dark-card:hover {
+  filter: drop-shadow(0px 5px 40px rgba(51, 255, 243, 0.3));
+}
+
+.light-card:hover .todo-card-add-todo {
+  display: block;
+  filter: drop-shadow(0px 5px 10px rgba(116, 51, 255, 0.5));
+}
+
+.dark-card:hover .todo-card-add-todo {
+  display: block;
+  filter: drop-shadow(0px 5px 10px rgba(51, 255, 243, 0.3));
+}
+
+.todo-card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.todo-card-category {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: -3%;
+}
+
+.todo-card-todo-list {
+  margin: 10px;
+}
+
+.completed-todo-light {
+  color: #8D8D8D;
+  text-decoration: line-through;
+  text-decoration-color: #7433FF;
+}
+
+.completed-todo-dark {
+  color: #8D8D8D;
+  text-decoration: line-through;
+  text-decoration-color: #33FFF3;
+}
+
+.todo-card-top-canvas {
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
+
+.todo-card-bottom-canvas {
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+}
+
+.todo-card-add-todo {
+  display: none;
+  position: absolute;
+  border-radius: 5px;
+
+  bottom: -40px;
+  right: 20px;
+  height: 55px;
+  width: 40px;
+}
+
+.edit-button {
+  text-align: center;
+}

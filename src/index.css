@@ -2,6 +2,26 @@
   margin: 0;
 }
 
+@font-face {
+  font-family: "WorkSans-Light";
+  src: url(./Assets/WorkSans-Light.ttf);
+}
+
+@font-face {
+  font-family: "WorkSans-Regular";
+  src: url(./Assets/WorkSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: "WorkSans-SemiBold";
+  src: url(./Assets/WorkSans-SemiBold.ttf);
+}
+
+.WorkSansLight { font-family: 'WorkSans-Light'; }
+.WorkSansRegular { font-family: 'WorkSans-Regular'; }
+.WorkSansSemiBold { font-family: 'WorkSans-SemiBold'; }
+
+
 input {
   color: #FFFFFF;
 }

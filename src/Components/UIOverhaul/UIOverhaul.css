@@ -1,9 +1,14 @@
 .container {
-  margin: 30px;
+  border-radius: 15px;
+  padding: 15px;
+  min-height: 100vh;
 }
 
 .greeting {
   font-size: 2.3rem;
+  font-weight: bold;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .current-date {
@@ -14,6 +19,9 @@
 .top-bar {
   display: grid;
   grid-template-columns: 40% 30% 30%;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .theme-button-container {
@@ -29,7 +37,6 @@
   transition: all 1s ease-in;
   color: #33FFF3;
 }
-
 
 .light-container {
   transition: all 1s ease-in;
@@ -59,4 +66,12 @@
 .dark-date-text {
   transition: color 1s ease-in;
   color: #FFFFFF;
+}
+
+.persistent-add-button {
+  position: fixed;
+  bottom: 20;
+  bottom: -5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
