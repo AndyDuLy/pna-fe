@@ -4,7 +4,7 @@ import { RouteComponentProps } from "react-router-dom";
 
 import { TodosContext } from "../Context/TodosContext";
 import { TodoFeed } from '../Reusable/ToDoFeed/ToDoFeed';
-import { NewTodoForm } from '../Reusable/NewTodoForm/NewTodoForm';
+
 
 import { GetUserHook } from "../../Hooks/GetUserHook";
 import { LogoutHook } from "../Logout/LogoutHook";
@@ -58,7 +58,7 @@ const HomePage: React.FC<Props> = (props) => {
         </button>
       </div>
 
-      {showInputForm && <NewTodoForm closeHook={setShowInputForm}/>}
+      
     </div>
   );
 };

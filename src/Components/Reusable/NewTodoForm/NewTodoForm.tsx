@@ -1,13 +1,16 @@
 import React, { useContext } from 'react'
 import { HexColorPicker } from "react-colorful";
 import './NewTodoForm.css';
+import '../../../index.css';
 
+import CloseIconLight from "../../../Assets/close-icon-light.png";
 import { TodosContext } from "../../Context/TodosContext";
 import { CreateTodosHook } from "../../../Hooks/CreateTodosHook";
 
 
 interface Props {
   closeHook: (newState: boolean) => void,
+  theme: String,
 }
 
 export const NewTodoForm: React.FC<Props> = (props) => {
@@ -21,6 +24,8 @@ export const NewTodoForm: React.FC<Props> = (props) => {
   });
 
   const { title, category, content } = data;
+
+  const theme = props.theme;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -52,10 +57,13 @@ export const NewTodoForm: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className="new-todo-form-canvas">
-      New To Do:
-
-      <input                 
+    <div className={`new-todo-form-${theme} new-todo-form-canvas`}>
+      <div className="new-todo-form-topbar">
+        <span className="WorkSansSemiBold new-todo-form-heading"> New To Do: </span>
+        <img onClick={() => props.closeHook(false)} className="close-icon" src={CloseIconLight} alt="Close Icon" />
+      </div>
+      
+      <input
         className="input-fields"
         type="text"
         name="title"
@@ -64,18 +72,13 @@ export const NewTodoForm: React.FC<Props> = (props) => {
         onChange={handleChange}
       />
 
-      <input                 
+      <input     
         className="input-fields"
         type="text"
         name="category"
         placeholder="Insert Category Here"
         value={category}
         onChange={handleChange}
-      />
-
-      <HexColorPicker
-        color={color}
-        onChange={setColor}
       />
 
       <input                 
@@ -87,9 +90,18 @@ export const NewTodoForm: React.FC<Props> = (props) => {
         onChange={handleChange}
       />
 
-      <button className="logout-button" onClick={submit}>
-        Create
-      </button>
+      <div className="color-picker-canvas">
+        <HexColorPicker
+          color={color}
+          onChange={setColor}
+        />
+      </div>
+
+      <div className={`new-todo-bottombar-${theme} new-todo-bottombar`}>
+        <button className={`new-todo-submit-button-${theme} new-todo-submit-button`} onClick={submit}>
+          Create
+        </button>
+      </div>
     </div>
   )
 }

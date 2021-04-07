@@ -6,6 +6,7 @@ import ThemeToggleLight from "../../Assets/theme-toggle-light.png";
 import ThemeToggleDark from "../../Assets/theme-toggle-dark.png";
 import NewTodoLight from "../../Assets/add-button-light.png";
 import NewTodoDark from "../../Assets/add-button-dark.png";
+import { NewTodoForm } from "../Reusable/NewTodoForm/NewTodoForm";
 
 
 interface Props {
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const Child: React.FC<Props> = (props) => {
+  const [showNewForm, setNewForm] = React.useState(false);
+
   const theme = props.theme;
 
   const date = new Date();
@@ -42,40 +45,54 @@ const Child: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className={`${theme}-container container`}>
-      <div className="top-bar">
-        <div>
-          <h3 className={`${theme}-date-text current-date WorkSansLight`}> {date.toDateString()} </h3>
-        </div>
+    <>
+      <div className={`${theme}-container container`}>
+        <div className="top-bar">
+          <div>
+            <h3 className={`${theme}-date-text current-date WorkSansLight`}> {date.toDateString()} </h3>
+          </div>
 
-        <div />
+          <div />
 
-        <div className="theme-button-container">
-          <div onClick={() => props.themeSwitchHook()}>
-            {theme === "light"
-              ? <img src={ThemeToggleLight} alt="Theme Toggle" />
-              : <img src={ThemeToggleDark} alt="Theme Toggle" />
-            }
+          <div className="theme-button-container">
+            <div onClick={() => props.themeSwitchHook()}>
+              {theme === "light"
+                ? <img src={ThemeToggleLight} alt="Theme Toggle" />
+                : <img src={ThemeToggleDark} alt="Theme Toggle" />
+              }
+            </div>
           </div>
         </div>
+
+        <h1 className={`${theme}-text greeting WorkSansSemiBold`}>
+          {greetingsByDay[todayNumerical]}
+          <span className={`${theme}-primary-color`}> {todayName}! </span>
+        </h1>
+
+        <TodoC Todo={sampleTodo} theme={props.theme} />    
+        <TodoC Todo={sampleTodo} theme={props.theme} />    
+        <TodoC Todo={sampleTodo} theme={props.theme} /> 
+    
+        <div className="persistent-add-button">
+          {theme === "light"
+            ? <img
+                onClick={() => setNewForm(!showNewForm)}
+                src={NewTodoLight}
+                alt="New Todo"
+                />
+            : <img
+                onClick={() => setNewForm(!showNewForm)}
+                src={NewTodoDark}
+                alt="New Todo"
+              />
+          }
+        </div>
       </div>
 
-      <h1 className={`${theme}-text greeting WorkSansSemiBold`}>
-        {greetingsByDay[todayNumerical]}
-        <span className={`${theme}-primary-color`}> {todayName}! </span>
-      </h1>
-
-      <TodoC Todo={sampleTodo} theme={props.theme} />    
-      <TodoC Todo={sampleTodo} theme={props.theme} />    
-      <TodoC Todo={sampleTodo} theme={props.theme} /> 
-  
-      <div className="persistent-add-button">
-        {theme === "light"
-          ? <img src={NewTodoLight} alt="New Todo" />
-          : <img src={NewTodoDark} alt="New Todo" />
-        }
-      </div>
-    </div>
+      {showNewForm &&
+        <NewTodoForm closeHook={() => setNewForm(false)} theme={theme} />
+      }
+    </>
   )
 }
 
