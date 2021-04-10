@@ -1,5 +1,5 @@
-const endpoint: string = `https://rocky-shore-14548.herokuapp.com`;
-//const endpoint: string = `http://localhost:5000`;
+//const endpoint: string = `https://rocky-shore-14548.herokuapp.com`;
+const endpoint: string = `http://localhost:5000`;
 
 export const endpoints = {
   login: `${endpoint}/auth/login`,

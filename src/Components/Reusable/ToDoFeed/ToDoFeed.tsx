@@ -1,22 +1,29 @@
 import React, { useContext } from 'react'
 import './ToDoFeed.css';
 
-import Todo from "../../Interfaces/Todo";
+import TodoObject from "../../Interfaces/TodoObject";
 
 import { TodosContext } from "../../Context/TodosContext";
-import { TodoCard } from "../TodoCard/TodoCard";
+import { TodoC } from "../TodoC/TodoC";
 
 
-export const TodoFeed = () => {
+interface Props {
+  theme: String,
+}
+
+export const TodoFeed: React.FC<Props> = (props) => {
   const todosContextConsumer = useContext(TodosContext);
+
+  const theme = props.theme;
 
   return (
     <div className="">
-      {todosContextConsumer.state.todos && todosContextConsumer.state.todos.map((todo: Todo) => {
+      {todosContextConsumer.state.todos && todosContextConsumer.state.todos.map((todo: TodoObject) => {
         return (
           <div key={todo.id}>
-            <TodoCard
+            <TodoC
               Todo={todo}
+              theme={theme}
             />
           </div>
         )}

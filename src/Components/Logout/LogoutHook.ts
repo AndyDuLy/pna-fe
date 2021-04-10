@@ -6,5 +6,6 @@ interface Props {
 
 export const LogoutHook = (props: Props) => {
   localStorage.removeItem("token");
+  localStorage.removeItem("userID");
   props.history.push("/login");
 };

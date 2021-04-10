@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import { HexColorPicker } from "react-colorful";
 
-import Todo from "../../Interfaces/Todo";
+import TodoObject from "../../Interfaces/TodoObject";
 
 import { TodosContext } from "../../Context/TodosContext";
 import { UpdateTodosHook } from "../../../Hooks/UpdateTodosHook";
 
 
 interface Props {
-  todo: Todo
+  todo: TodoObject
   closeHook: (newState: boolean) => void,
 }
 
@@ -19,10 +19,11 @@ export const EditTodoForm: React.FC<Props> = (props) => {
   const [data, setData] = React.useState({
     title: `${props.todo.title}`,
     category: `${props.todo.category}`,
-    content: `${props.todo.content}`,
+    content: `${props.todo.content.content}`,
+    done: props.todo.content.done,
   });
 
-  const { title, category, content } = data;
+  const { title, category, content, done } = data;
   const todoID = props.todo.id;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +31,7 @@ export const EditTodoForm: React.FC<Props> = (props) => {
   };
 
   const submit = async () => {
-    if (title && category && content && color) {
+    if (title && category && color) {
       const res = await UpdateTodosHook(title, category, content, color, todoID);
 
       if (res.status === 201) {
@@ -40,7 +41,7 @@ export const EditTodoForm: React.FC<Props> = (props) => {
             id: todoID,
             title: title,
             category: category,
-            content: content,
+            content: { done: done, content: content },
             colorCode: color,
           },
         })

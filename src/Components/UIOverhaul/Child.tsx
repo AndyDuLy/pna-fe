@@ -1,22 +1,30 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
+import { RouteComponentProps } from "react-router-dom";
 import "./UIOverhaul.css";
 
-import { TodoC } from "../Reusable/TodoC/TodoC";
 import ThemeToggleLight from "../../Assets/theme-toggle-light.png";
 import ThemeToggleDark from "../../Assets/theme-toggle-dark.png";
 import NewTodoLight from "../../Assets/add-button-light.png";
 import NewTodoDark from "../../Assets/add-button-dark.png";
+
 import { NewTodoForm } from "../Reusable/NewTodoForm/NewTodoForm";
+import { TodoFeed } from "../Reusable/ToDoFeed/ToDoFeed";
+
+import { TodosContext } from "../Context/TodosContext";
+import { GetUserHook } from "../../Hooks/GetUserHook";
+import { LogoutHook } from '../Logout/LogoutHook';
 
 
 interface Props {
   theme: string,
   themeSwitchHook: () => void,
+  history: RouteComponentProps['history'],
 }
 
 const Child: React.FC<Props> = (props) => {
   const [showNewForm, setNewForm] = React.useState(false);
 
+  const todoContext = useContext(TodosContext);
   const theme = props.theme;
 
   const date = new Date();
@@ -33,19 +41,27 @@ const Child: React.FC<Props> = (props) => {
     "At last, it's ",
   ]
 
-  const sampleTodo = {
-    id: "0",
-    title: "UI Redesign",
-    category: "Project Note App",
-    todos: [
-      { done: false, content: "Figma High Fidelity Mockups" },
-      { done: true, content: "CSS Library Setup" },
-    ],
-    colorCode: "#7433FF",
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await GetUserHook();
+
+      todoContext.dispatch({
+        type: "POPULATE_TODO",
+        payload: res.data.todos,
+      });
+    }
+    
+    fetchData(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!localStorage.getItem("token")) {
+    props.history.push("/login");
   }
 
   return (
     <>
+      <button onClick={() => LogoutHook(props)}> Logout </button>
+
       <div className={`${theme}-container container`}>
         <div className="top-bar">
           <div>
@@ -69,9 +85,7 @@ const Child: React.FC<Props> = (props) => {
           <span className={`${theme}-primary-color`}> {todayName}! </span>
         </h1>
 
-        <TodoC Todo={sampleTodo} theme={props.theme} />    
-        <TodoC Todo={sampleTodo} theme={props.theme} />    
-        <TodoC Todo={sampleTodo} theme={props.theme} /> 
+        <TodoFeed theme={theme} />
     
         <div className="persistent-add-button">
           {theme === "light"

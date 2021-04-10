@@ -1,10 +1,10 @@
 import React, { createContext } from 'react'
 
-import Todo from "../Interfaces/Todo";
+import TodoObject from "../Interfaces/TodoObject";
 
 
 export interface TodosState {
-  todos: Todo[];
+  todos: TodoObject[];
 }
 
 export const initialState: TodosState = {
@@ -12,9 +12,9 @@ export const initialState: TodosState = {
 }
 
 export type TodosActionType =
-  | { type: "POPULATE_TODO"; payload: Todo[] }
-  | { type: "CREATE_TODO"; payload: Todo }
-  | { type: "EDIT_TODO"; payload: Todo }
+  | { type: "POPULATE_TODO"; payload: TodoObject[] }
+  | { type: "CREATE_TODO"; payload: TodoObject }
+  | { type: "EDIT_TODO"; payload: TodoObject }
   | { type: "DELETE_TODO"; payload: string }
   
 

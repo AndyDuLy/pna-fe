@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import './TodoCard.css';
 
-import Todo from "../../Interfaces/Todo";
+import TodoObject from "../../Interfaces/TodoObject";
 
 import { TodosContext } from "../../Context/TodosContext";
 import { EditTodoForm } from "../EditTodoForm/EditTodoForm";
@@ -9,7 +9,7 @@ import { DeleteTodosHook } from "../../../Hooks/DeleteTodosHook";
 
 
 interface Props {
-  Todo: Todo,
+  Todo: TodoObject,
 }
 
 export const TodoCard: React.FC<Props> = (props) => {
@@ -46,7 +46,7 @@ export const TodoCard: React.FC<Props> = (props) => {
       <div className="card-content">
         <span style={style.cardCategory}> {props.Todo.category} </span> <br />
         <span className="card-title"> {props.Todo.title} </span> <br />
-        <span className="card-todo-content"> {props.Todo.content} </span>
+        <span className="card-todo-content"> </span>
       </div>
 
       <div>

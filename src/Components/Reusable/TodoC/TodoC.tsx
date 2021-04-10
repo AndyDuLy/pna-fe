@@ -31,21 +31,17 @@ export const TodoC: React.FC<Props> = (props) => {
         </div>
 
         <div>
-          {props.Todo.todos.map((todo) => {
-            return (
-              <div className="todo-card-todo-list WorkSansLight">
-                <span
-                  className={todo.done === true
-                    ? props.theme === "light"
-                      ? "completed-todo-light"
-                      : "completed-todo-dark"
-                    : ""
-                }>
-                  {todo.content}
-                </span> <br />
-              </div>
-            )
-          })}
+          <div className="todo-card-todo-list WorkSansLight">
+            <span
+              className={props.Todo.content.done === true
+                ? props.theme === "light"
+                  ? "completed-todo-light"
+                  : "completed-todo-dark"
+                : ""
+            }>
+              {props.Todo.content.content}
+            </span> <br />
+          </div>
         </div>
 
         <div className="todo-card-bottom-canvas">

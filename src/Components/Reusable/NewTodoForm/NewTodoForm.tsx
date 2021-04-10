@@ -21,9 +21,10 @@ export const NewTodoForm: React.FC<Props> = (props) => {
     title: "",
     category: "",
     content: "",
+    done: false,
   });
 
-  const { title, category, content } = data;
+  const { title, category, content, done } = data;
 
   const theme = props.theme;
 
@@ -33,14 +34,14 @@ export const NewTodoForm: React.FC<Props> = (props) => {
 
   const submit = async () => {
     if (title && category && content) {
-      const res = await CreateTodosHook(title, category, content, color);
+      const res = await CreateTodosHook(title, category, content, color, done);
 
       if (res.status === 201) {
         const todoObject = {
           id: res.data.objectID,
           title: title,
           category: category,
-          content: content,
+          content: { done: done, content: content },
           colorCode: color,
         };
 
